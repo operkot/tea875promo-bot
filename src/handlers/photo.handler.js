@@ -53,6 +53,10 @@ composer.on('message:photo', async ctx => {
       userRequestData
     )
 
+    // Выходим из режима одидания фото и сбрасываем выбранный розыгрыш.
+    ctx.session.mode = MODES.IDLE
+    ctx.session.selected_promo_uid = null
+
     // Отправляем ответ пользователю
     await ctx.reply(ctx.t('request-created'))
   } catch (error) {
