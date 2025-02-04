@@ -43,6 +43,12 @@ const store = () => ({
 bot.use(i18n)
 bot.use(session({ initial: store }))
 
+// Задаем меню команд бота
+bot.api.setMyCommands([
+  { command: 'start', description: 'Начало работы с ботом' },
+  { command: 'info', description: 'Информация о проводимом розыгрыше' },
+])
+
 // Обработчик команды /start
 bot.command('start', startHandler)
 
