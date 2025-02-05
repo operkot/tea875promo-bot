@@ -59,7 +59,7 @@ bot.command('info', infoHandler)
 bot.callbackQuery(/participate/, participateHandler)
 
 // Обработчик отмены режима ожидания фото
-bot.hears(['Отмена', 'отмена'], cancelHandler)
+bot.command('cancel', cancelHandler)
 
 // Обработчик сообщения с "пасхалкой"
 bot.hears(['❤️', '🍵'], eastereggHandler)
