@@ -8,7 +8,7 @@ composer.callbackQuery(/participate/, async ctx => {
   if (ctx.session.mode === MODES.WAIT_PHOTO) return
 
   try {
-    const { username } = ctx.session
+    const { username } = ctx.update.callback_query.from
     const promoUID = ctx.match.input.replace(/participate_/g, '')
     const strapiFindRequestResponse = await api.request.find({
       promoUID,
