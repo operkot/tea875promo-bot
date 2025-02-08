@@ -36,13 +36,13 @@ composer.command('info', async ctx => {
     }
 
     // Проверяем, есть ли изображение, если есть отправляем сообщение с фото и inline-клавиатурой
-    // if (photo) {
-    //   await ctx.replyWithPhoto(process.env.API_URL + photo, {
-    //     caption: description,
-    //     ...replyOptions,
-    //   })
-    //   return
-    // }
+    if (photo) {
+      await ctx.replyWithPhoto(process.env.API_URL + photo, {
+        caption: description,
+        ...replyOptions,
+      })
+      return
+    }
 
     //Отправляем просто текстовое сообщение с inline-клавиатурой если изображения нет
     await ctx.reply(description, replyOptions)
