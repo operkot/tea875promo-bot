@@ -1,8 +1,6 @@
 import 'dotenv/config'
 import { Bot, GrammyError, HttpError, session } from 'grammy'
 import { I18n } from '@grammyjs/i18n'
-import express from 'express'
-import cors from 'cors'
 
 import MODES from './constants/mode.constants.js'
 import photoHandler from './handlers/photo.handler.js'
@@ -26,12 +24,6 @@ const i18n = new I18n({
   defaultLocale: 'ru',
   directory: 'locales',
 })
-
-const PORT = process.env.PORT || 3000
-const app = express()
-
-app.use(express.json())
-app.use(cors())
 
 // Создаем хранилище в сессии бота
 const store = () => ({
@@ -83,31 +75,3 @@ bot.catch(err => {
 
 // Запуск бота
 bot.start()
-
-app.post('/notifyuser', async (req, res) => {
-  const { chat_id, comment, request_status } = req.body
-
-  if (request_status === 'pending') return
-
-  try {
-    if (request_status === 'approved') {
-      await bot.api.sendMessage(chat_id, 'Ваша заявка одобрена! Удачи вам! 🎉')
-    }
-
-    if (request_status === 'rejected' && !comment) {
-      await bot.api.sendMessage(chat_id, 'Ваша заявка отклонена! 😔')
-    }
-
-    if (request_status === 'rejected' && comment) {
-      await bot.api.sendMessage(
-        chat_id,
-        `Ваша заявка отклонена! 😔 \nПричина:\n${comment}`
-      )
-    }
-    return res.status(200).json({})
-  } catch (error) {
-    return res.status(501).json({ error })
-  }
-})
-
-app.listen(PORT, () => console.log(`server started on PORT: ${PORT}`))
