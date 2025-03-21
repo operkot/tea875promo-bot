@@ -35,6 +35,7 @@ composer.on('message:photo', async ctx => {
 
     // Отправляем файл в Strapi
     const strapiImageUploadResponse = await api.images.upload(formData)
+    console.log(strapiImageUploadResponse.data.data)
 
     // Создаем объект заявки на участие в розыгрыше
     const userRequestData = {
@@ -63,7 +64,7 @@ composer.on('message:photo', async ctx => {
     // Выходим из режима одидания фото и сбрасываем выбранный розыгрыш.
     ctx.session.mode = MODES.IDLE
     ctx.session.selected_promo_uid = null
-    console.error('Ошибка:', error?.data.data)
+    console.error('Ошибка:', error)
     await ctx.reply('Произошла ошибка при обработке фото.')
   }
 })
