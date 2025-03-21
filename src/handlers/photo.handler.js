@@ -60,7 +60,10 @@ composer.on('message:photo', async ctx => {
     // Отправляем ответ пользователю
     await ctx.reply(ctx.t('request-created'))
   } catch (error) {
-    console.error('Ошибка:', error)
+    // Выходим из режима одидания фото и сбрасываем выбранный розыгрыш.
+    ctx.session.mode = MODES.IDLE
+    ctx.session.selected_promo_uid = null
+    console.error('Ошибка:', error?.data.data)
     await ctx.reply('Произошла ошибка при обработке фото.')
   }
 })
