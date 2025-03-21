@@ -35,7 +35,6 @@ composer.on('message:photo', async ctx => {
 
     // Отправляем файл в Strapi
     const strapiImageUploadResponse = await api.images.upload(formData)
-    console.log(strapiImageUploadResponse.data.data)
 
     // Создаем объект заявки на участие в розыгрыше
     const userRequestData = {
