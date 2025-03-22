@@ -39,7 +39,7 @@ composer.on('message:photo', async ctx => {
     // Создаем объект заявки на участие в розыгрыше
     const userRequestData = {
       data: {
-        tg_username: username,
+        tg_username: username || 'ANON',
         chat_id: id,
         promotion: {
           connect: [{ documentId: selected_promo_uid }],

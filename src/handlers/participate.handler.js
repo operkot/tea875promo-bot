@@ -15,6 +15,15 @@ composer.callbackQuery(/participate/, async ctx => {
       username,
     })
 
+    // Проверяем указано ли имя пользователя Telegram.
+    // Если неуказано отправляем пользователю сообщение с просьбой указать username
+    if (!username) {
+      await ctx.answerCallbackQuery()
+      await ctx.reply(ctx.t('username_empty'))
+      return
+    }
+
+    // Проверяем есть ли заявка на участие от пользователя.
     if (strapiFindRequestResponse.data.length > 0) {
       const message = {
         approved: ctx.t('request-find-approved'),
